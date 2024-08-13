@@ -38,8 +38,27 @@ def orders(request):
 def change_password(request):
  return render(request, 'app/changepassword.html')
 
-def mobile(request):
- return render(request, 'app/mobile.html')
+def mobile(request, data=None):
+ if data == None:
+  mobiles = Product.objects.filter(category = 'M')
+ elif data == 'Redmi' or data == 'Samsung':
+  mobiles = Product.objects.filter(category = 'M').filter(brand=data)
+
+#  elif data == 'below':
+#   mobiles = Product.objects.filter(category = 'M').filter(discounted_price_lt=1000)
+
+#  elif data == 'above':
+#    mobiles = Product.objects.filter(category = 'M').filter(discounted_price_gt=1000)
+
+ elif data == 'below':
+  mobiles = Product.objects.filter(category='M').filter(discounted_price__lt=1000)
+
+ elif data == 'above':
+  mobiles = Product.objects.filter(category='M').filter(discounted_price__gt=1000)
+
+
+ 
+ return render(request, 'app/mobile.html',{'mobiles': mobiles})
 
 def login(request):
  return render(request, 'app/login.html')
