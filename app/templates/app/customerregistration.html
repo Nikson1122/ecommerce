@@ -7,6 +7,11 @@
   <div class="col-sm-6 offset-sm-3">
    <h3>Customer Registration</h3>
    <hr>
+   {% if messages %}
+   {% for message in messages  %}
+   <p{% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p>
+   {% endfor %}
+   {% endif %}
 
    <form action="" method="post" novalidate class="shadow p-5">
       {% csrf_token %}
