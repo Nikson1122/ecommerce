@@ -3,7 +3,7 @@ from django.views import View
 from .models import Customer, Product, cart, OrderPlaced
 from .forms import CustomerRegistrationForm
 from django.contrib import messages
-
+from django.contrib.auth.views import LogoutView
 # def home(request):
 #  return render(request, 'app/home.html')
 
@@ -62,8 +62,8 @@ def mobile(request, data=None):
  
  return render(request, 'app/mobile.html',{'mobiles': mobiles})
 
-def login(request):
- return render(request, 'app/login.html')
+# def login(request):
+#  return render(request, 'app/login.html')
 
 # def customerregistration(request):
 #  return render(request, 'app/customerregistration.html')
@@ -78,8 +78,11 @@ class CustomerRegistrationView(View):
   if form.is_valid():
    messages.success(request, 'Congratulations!! Registered Sucessfully')
    form.save()
+ 
   return render(request, 'app/customerregistration.html',{'form':form})
-
+class CustomLogoutView(LogoutView):
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
  
 
 
