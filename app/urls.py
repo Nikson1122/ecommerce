@@ -24,7 +24,9 @@ urlpatterns = [
     # path('registration/', views.customerregistration, name='customerregistration'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
 
-    path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='app/passwordchange.html', form_class= MypasswordChangeForm), name='passwordchange'),
+    path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='app/passwordchange.html', form_class= MypasswordChangeForm, success_url='/passwordchangedone/'), name='passwordchange'),
+
+    path('passwordchangedone/', auth_views.PasswordChangeView.as_view(template_name='app/passwordchangedone.html'), name='passwordchangedone'),
 
    path('registration/', views.CustomerRegistrationView.as_view(), name="customerregistration"),
 
